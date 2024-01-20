@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_titulo %}
+Resultados da Pesquisa
+{% endblock page_titulo %}
+
+{% block content %}
+<div class="pai" style="margin-top: 10px; align-items: center; text-align: center;">
+    <div class="filho" >
+
+        <h3>Resultados da Pesquisa para</h3> <h2 style="background-color: white;color: red; border-radius: 20px;">"{{ query }}"</h2
+        
+            {% if compromissos %}
+            <ul>
+        {% for compromisso in compromissos %}
+            <li>
+                *<a href="{% url 'compromisso_detail' pk=compromisso.id %}">  {{ compromisso.titulo|lower|capfirst }}</a> no dia {{compromisso.data}} às {{compromisso.hora}}</li>
+                {% endfor %}
+            </ul>
+                {% else %}
+                <p>Nenhum compromisso encontrado.</p>
+                {% endif %}
+    </div>
+</div>
+{% endblock content %}

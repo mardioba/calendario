@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+    
+    {% block page_titulo %}
+        Calendario BASE
+    {% endblock page_titulo %}
+    
+    {% block content %}
+            
+    <style>
+        .container {
+            display: flex;
+        }
+        
+        ..esquerda {
+            flex: 1;
+            box-sizing: border-box; /* Garante que a largura inclui padding e borda */
+            margin-top: 10px;
+            
+        }
+         .direita {
+            flex: 1;
+            box-sizing: border-box; /* Garante que a largura inclui padding e borda */
+            text-align: center;
+            margin-top: 10px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background:  #DCDCDC;
+        }
+
+        .my-calendar  {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .my-calendar .months-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .my-calendar .month-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: white;
+        }
+
+        .my-calendar .month-table th, .my-calendar .month-table td {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 8px;
+        }
+
+        .my-calendar .month-table th {
+            background-color: #f2f2f2;
+        }
+
+        .my-calendar .has-compromisso-cell {
+            background-color: #FFD700; /* Cor de destaque para células com compromissos */
+        }
+
+        @media screen and (max-width: 600px) {
+            .my-calendar .months-container {
+                grid-template-columns: 1fr;
+                font-size: medium;
+            }
+            ..esquerda {
+                flex: 1;
+                box-sizing: border-box; /* Garante que a largura inclui padding e borda */
+                margin-top: 20px;
+                font-size: 13px;                
+            }
+             .direita {
+                flex: 1;
+                box-sizing: border-box; /* Garante que a largura inclui padding e borda */
+                text-align: center;
+                margin-top: 10px;
+                margin-left: 10px;
+                font-size: 13px;
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <div class="my-calendar">
+        
+        <div class="container">
+            <div class="esquerda" style="text-align: center; width: 50%;">
+                <span style="padding: 10px;"><p style="font-weight: bold;">Número de Compromissos encontrados:  <b style="background: red;padding: 5px;">{{ total }}</b></p>
+            </div>
+            <div class="direita">
+                <form action="{% url 'search_compromissos' %}" method="get">
+                    {{ form.q.label_tag }} {{ form.q }} <button type="submit" style="background: blue;font-weight: bold;color: white;font-style: italic;"> Pesquisar</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="months-container">
+            {% for month in months %}
+                <div class="month-table">
+                    <h2>{{ month.month }}</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Seg</th>
+                                <th>Ter</th>
+                                <th>Qua</th>
+                                <th>Qui</th>
+                                <th>Sex</th>
+                                <th>Sáb</th>
+                                <th>Dom</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for week in month.weeks %}
+                                <tr>
+                                    {% for day in week %}
+                                        <td {% if day.link %}class="has-compromisso-cell"{% endif %}>
+                                            {% if day.link %}
+                                                <a href="{{ day.link }}">{{ day.day }}</a>
+                                            {% else %}
+                                                {{ day.day }}
+                                            {% endif %}
+                                        </td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endblock content %}

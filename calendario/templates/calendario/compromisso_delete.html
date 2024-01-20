@@ -1,0 +1,16 @@
+<!-- agenda/compromisso_delete.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+
+  <h2>Excluir Compromisso</h2>
+  <p>Tem certeza de que deseja excluir o compromisso <b>"{{ compromisso.titulo }}"</b> de <b>{{ compromisso.data|date:"d/m/Y" }}</b> as <b>{{ compromisso.hora }}</b>?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Sim, excluir</button>
+  </form>
+  <a href="{% url 'show_cal' %}">Cancelar</a>
+</div>
+{% endblock content %}
