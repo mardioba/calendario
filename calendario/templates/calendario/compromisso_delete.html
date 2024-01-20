@@ -1,16 +1,17 @@
 <!-- agenda/compromisso_delete.html -->
 
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-<div class="container-fluid">
-
+<div class="container-fluid" style="margin: 0 auto;width: 50%;">
+<center>
   <h2>Excluir Compromisso</h2>
   <p>Tem certeza de que deseja excluir o compromisso <b>"{{ compromisso.titulo }}"</b> de <b>{{ compromisso.data|date:"d/m/Y" }}</b> as <b>{{ compromisso.hora }}</b>?</p>
   <form method="post">
     {% csrf_token %}
-    <button type="submit" class="btn btn-danger">Sim, excluir</button>
+    <button type="submit" class="btn" style="background: blue;color: white;"><img src="{% static 'img/delete.png' %}" alt=""> Sim, excluir</button>
   </form>
-  <a href="{% url 'show_cal' %}">Cancelar</a>
+  <a href="{% url 'show_cal' %}" class="btn" style="background: blueviolet;color: white;margin-top: 5px;"><img src="{% static 'img/cancelar.png' %}" alt=""> Cancelar</a>
+</center>
 </div>
 {% endblock content %}

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-    
+{% load static %}    
     {% block page_titulo %}
         Calendario BASE
     {% endblock page_titulo %}
@@ -108,7 +108,7 @@
         <div class="months-container">
             {% for month in months %}
                 <div class="month-table">
-                    <h2>{{ month.month }}</h2>
+                    <h2><img src="{% static 'img/calendario.png' %}" alt="", style="width: 32px;height: 32px;"> {{ month.month }}</h2>
                     <table>
                         <thead>
                             <tr>

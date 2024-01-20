@@ -7,19 +7,19 @@ Detalhes do Compromisso
 {% block content %}
 <div class="container-fluid" style="background: white;">
     <div>
-        <center><img src="{% static 'img/logo.png' %}" alt=""></center>
+        <center><img src="{% static 'img/logo.png' %}" alt="">
             <p><strong>Compromisso: </strong>{{ compromisso.titulo }}</h1>
                 <p><strong>Data:</strong><i> {{ compromisso.data|date:"d" }} de {{ compromisso.data|date:"F" }} de {{ compromisso.data|date:"Y" }}</i></p>
                 <p><strong>Hora:</strong> {{ compromisso.hora }}</p>
                 <p><strong>Descrição:</strong> {{ compromisso.descricao }}</p>
                 <!-- Link para editar -->
-                <a href="{% url 'compromisso_edit' pk=compromisso.pk %}">Editar</a>
+                <a href="{% url 'compromisso_edit' pk=compromisso.pk %}"><img src="{% static 'img/edit.png' %}" alt="">Editar</a>
 
                 <!-- Link para excluir -->
-                <a href="{% url 'compromisso_delete' pk=compromisso.pk %}">Excluir</a>
+                <a href="{% url 'compromisso_delete' pk=compromisso.pk %}"><img src="{% static 'img/delete.png' %}" alt="">Excluir</a>
 
-                <center><a href="{% url 'show_cal' %}"><img src="{% static 'img/calendario.png' %}" alt="Logo" style="width: 24px; height: 24px;"> Voltar para o calendário</a></center>
-                
+                <a href="{% url 'show_cal' %}"><br><img src="{% static 'img/calendario.png' %}" alt="Logo" style="width: 24px; height: 24px;"> Voltar para o calendário</a>
+            </center>
             </div>
         </div>
 {% endblock content %}

@@ -1,7 +1,12 @@
 <!-- agenda/compromisso_edit.html -->
 
 {% extends 'base.html' %}
+{% load static %}
 
+{% block page_titulo %}
+  Editar Compromisso
+{% endblock page_titulo %}
+  
 {% block content %}
 <div class="container-fluid">
 
@@ -9,7 +14,7 @@
   <form method="post" class="post-form">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Salvar alterações</button>
+    <button type="submit" class="btn btn-primary"><img src="{% static 'img/salvar.png' %}" alt=""> Salvar</button>
   </form>
 </div>
 {% endblock content%}

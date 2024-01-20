@@ -14,7 +14,7 @@ Resultados da Pesquisa
             <ul>
         {% for compromisso in compromissos %}
             <li>
-                *<a href="{% url 'compromisso_detail' pk=compromisso.id %}">  {{ compromisso.titulo|lower|capfirst }}</a> no dia {{compromisso.data}} às {{compromisso.hora}}</li>
+                <img src="{% static 'img/check.png' %}" alt=""> <a href="{% url 'compromisso_detail' pk=compromisso.id %}">  {{ compromisso.titulo|lower|capfirst }}</a> no dia {{compromisso.data}} às {{compromisso.hora}}</li>
                 {% endfor %}
             </ul>
                 {% else %}
