@@ -1,4 +1,4 @@
-🗓️ <h1>Django Agenda</h1>
+<h1>🗓️ Django Agenda</h1>
 Descrição
 
 Esta aplicação Django foi desenvolvida para facilitar a administração de compromissos, permitindo o cadastro de eventos com informações detalhadas, como Título, Descrição, Data e Hora. A principal funcionalidade é a apresentação dos compromissos em um calendário anual/mensal, onde as datas contendo compromissos são exibidas como links. Ao clicar em uma data com compromisso, o usuário é redirecionado para uma página de detalhes específica desse compromisso.
