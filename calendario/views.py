@@ -1,16 +1,20 @@
+# /home/mardio/Projetos/calendario/calendario/views.py
 from django.shortcuts import render, redirect, get_object_or_404
 import calendar
 import datetime
 from .models import Compromisso
 from .forms import CompromissoForm, SearchForm
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def show_cal(request):
     current_year = datetime.datetime.now().year
     months = []
     form = SearchForm(request.GET)
     for month in range(1, 13):
-        COMPROMISSOS = Compromisso.objects.all()
+        # COMPROMISSOS = Compromisso.objects.all()
+        COMPROMISSOS = Compromisso.objects.filter(user=request.user)
         month_calendar = calendar.monthcalendar(current_year, month)
         month_name = calendar.month_name[month]
         month_name_pt = {
@@ -62,11 +66,14 @@ def show_cal(request):
     return render(request, "calendario/cal.html", context)
 
 
+@login_required
 def add_compromisso(request):
     if request.method == "POST":
         form = CompromissoForm(request.POST)
         if form.is_valid():
-            form.save()
+            compromisso = form.save(commit=False)
+            compromisso.user = request.user  # Define o usuário logado
+            compromisso.save()
             return redirect("show_cal")
     else:
         form = CompromissoForm()
@@ -74,6 +81,7 @@ def add_compromisso(request):
     return render(request, "calendario/add_compromisso.html", {"form": form})
 
 
+@login_required
 def compromisso_detail(request, pk):
     compromisso = get_object_or_404(Compromisso, pk=pk)
     return render(
@@ -81,6 +89,7 @@ def compromisso_detail(request, pk):
     )
 
 
+@login_required
 def compromisso_edit(request, pk):
     compromisso = get_object_or_404(Compromisso, pk=pk)
 
@@ -99,6 +108,7 @@ def compromisso_edit(request, pk):
     )
 
 
+@login_required
 def compromisso_delete(request, pk):
     compromisso = get_object_or_404(Compromisso, pk=pk)
 
@@ -111,6 +121,7 @@ def compromisso_delete(request, pk):
     )
 
 
+@login_required
 def search_compromissos(request):
     query = request.GET.get("q")
     compromissos = (

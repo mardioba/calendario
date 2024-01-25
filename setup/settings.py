@@ -56,7 +56,8 @@ ROOT_URLCONF = "setup.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        # "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "calendario/templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -82,6 +83,7 @@ DATABASES = {
     }
 }
 
+LOGIN_REDIRECT_URL = "show_cal"  # Ou substitua por outra URL desejada
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
