@@ -20,7 +20,14 @@ Detalhes do Compromisso
                     
                 <!-- Link para editar -->
                 <a href="{% url 'compromisso_edit' pk=compromisso.pk %}"><img src="{% static 'img/edit.png' %}" alt="">Editar</a>
+                
+                {% if not compromisso.concluido %}
                 <a href="{% url 'marcar_concluido' compromisso_id=compromisso.id %}"><img src="{% static 'img/concluido.png' %}" alt="" style="width: 24px;height: 24px;">Marcar como Concluído</a>
+
+                    {% else %}
+                     
+                {% endif %}
+                    
                 <!-- Link para excluir -->
                 <a href="{% url 'compromisso_delete' pk=compromisso.pk %}"><img src="{% static 'img/delete.png' %}" alt="">Excluir</a>
 

@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 import calendar
 import datetime
 from .models import Compromisso
-from .forms import CompromissoForm, SearchForm
+from .forms import CompromissoForm, SearchForm, EditCompromissoForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -94,12 +94,12 @@ def compromisso_edit(request, pk):
     compromisso = get_object_or_404(Compromisso, pk=pk)
 
     if request.method == "POST":
-        form = CompromissoForm(request.POST, instance=compromisso)
+        form = EditCompromissoForm(request.POST, instance=compromisso)
         if form.is_valid():
             form.save()
             return redirect("compromisso_detail", pk=pk)
     else:
-        form = CompromissoForm(instance=compromisso)
+        form = EditCompromissoForm(instance=compromisso)
 
     return render(
         request,
