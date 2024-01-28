@@ -10,6 +10,7 @@ from calendario.views import (
     compromisso_delete,
     compromisso_edit,
     search_compromissos,
+    marcar_concluido,
 )
 from django.contrib.auth import views as auth_views
 
@@ -24,4 +25,5 @@ urlpatterns = [
     path("accounts/login/", auth_views.LoginView.as_view(), name="custom_login"),
     path("accounts/logout/", auth_views.LogoutView.as_view(next_page="login"), name="logout"),
     path("accounts/", include("django.contrib.auth.urls")),
+    path('marcar_concluido/<int:compromisso_id>/', marcar_concluido, name='marcar_concluido'),
 ]

@@ -14,7 +14,7 @@ def show_cal(request):
     form = SearchForm(request.GET)
     for month in range(1, 13):
         # COMPROMISSOS = Compromisso.objects.all()
-        COMPROMISSOS = Compromisso.objects.filter(user=request.user)
+        COMPROMISSOS = Compromisso.objects.filter(user=request.user, concluido=False)
         month_calendar = calendar.monthcalendar(current_year, month)
         month_name = calendar.month_name[month]
         month_name_pt = {
@@ -133,3 +133,13 @@ def search_compromissos(request):
         "calendario/search_result.html",
         {"compromissos": compromissos, "query": query},
     )
+#### CONCLUIR #####
+def marcar_concluido(request, compromisso_id):
+    compromisso = get_object_or_404(Compromisso, pk=compromisso_id)
+
+    # Marcar o compromisso como concluído
+    compromisso.concluido = True
+    compromisso.save()
+
+    # Redirecionar para a página de detalhes do compromisso
+    return redirect('compromisso_detail', pk=compromisso_id)

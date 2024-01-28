@@ -12,9 +12,15 @@ Detalhes do Compromisso
                 <p><strong>Data:</strong><i> {{ compromisso.data|date:"d" }} de {{ compromisso.data|date:"F" }} de {{ compromisso.data|date:"Y" }}</i></p>
                 <p><strong>Hora:</strong> {{ compromisso.hora }}</p>
                 <p><strong>Descrição:</strong> {{ compromisso.descricao }}</p>
+                {% if compromisso.concluido %}
+                <p><strong>Status<img src="{% static 'img/concluido.png' %}" alt="" style="width: 24px;height: 24px;"> Concluído</strong></p>
+                {% else %}
+                <p><strong>Status<img src="{% static 'img/pendente.png' %}" alt="" style="width: 24px;height: 24px;"> Pendente</strong></p>
+                {% endif %}
+                    
                 <!-- Link para editar -->
                 <a href="{% url 'compromisso_edit' pk=compromisso.pk %}"><img src="{% static 'img/edit.png' %}" alt="">Editar</a>
-
+                <a href="{% url 'marcar_concluido' compromisso_id=compromisso.id %}"><img src="{% static 'img/concluido.png' %}" alt="" style="width: 24px;height: 24px;">Marcar como Concluído</a>
                 <!-- Link para excluir -->
                 <a href="{% url 'compromisso_delete' pk=compromisso.pk %}"><img src="{% static 'img/delete.png' %}" alt="">Excluir</a>
 

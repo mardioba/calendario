@@ -10,6 +10,7 @@ class Compromisso(models.Model):
     data = models.DateField()
     hora = models.TimeField()
     descricao = models.TextField()
+    concluido = models.BooleanField(null=False, default=False)
 
     def __str__(self):
         return self.titulo
