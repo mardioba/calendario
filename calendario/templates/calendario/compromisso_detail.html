@@ -41,9 +41,7 @@ Detalhes do Compromisso
                         <tr>
                             <th>ID</th>
                             <th>Data</th>
-                            <th>Hora</th>
                             <th>Descrição</th>
-                            <th>Status</th>
                             <th>Ações</th>
                             <!-- Adicione mais colunas conforme necessário -->
                         </tr>
@@ -54,10 +52,8 @@ Detalhes do Compromisso
                         <tr>
                             
                             <td><a href="{% url 'compromisso_detail' pk=compromisso_do_dia.pk %}">{{ compromisso_do_dia.pk }}</a></td>
-                            <td>{{ compromisso_do_dia.data|date:"d/m/Y" }}</td>
-                            <td>{{ compromisso_do_dia.hora }}</td>
+                            <td>{{ compromisso_do_dia.data|date:"d/m/Y" }} as {{ compromisso_do_dia.hora }}</td>
                             <td>{{ compromisso_do_dia.descricao }}</td>
-                            <td>{% if compromisso_do_dia.concluido %}Concluído{% else %}Pendente{% endif %}</td>
                             <td><a href="{% url 'compromisso_edit' pk=compromisso.pk %}"><img src="{% static 'img/edit.png' %}" alt="" style="width: 16px;height: 16px;">Editar</a>
                                 {% if not compromisso_do_dia.concluido %}
                                 <a href="{% url 'marcar_concluido' compromisso_id=compromisso.id %}"><img src="{% static 'img/concluido.png' %}" alt="" style="width: 16px;height: 16px;">Concluir</a>
