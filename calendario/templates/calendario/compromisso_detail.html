@@ -31,9 +31,51 @@ Detalhes do Compromisso
                 <!-- Link para excluir -->
                 <a href="{% url 'compromisso_delete' pk=compromisso.pk %}"><img src="{% static 'img/delete.png' %}" alt="">Excluir</a>
 
-                <a href="{% url 'show_cal' %}"><br><img src="{% static 'img/calendario.png' %}" alt="Logo" style="width: 24px; height: 24px;"> Voltar para o calendário</a>
             </center>
+            {% if compromissos_do_dia.count > 1 %}
+            <div class="text-center">
+                <br>
+                <h2><p style="background: lightgrey;">Outros Compromissos do Dia</p></h2>
+                <table class="table" style="margin: 0 auto;text-align: center;background: white;">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Data</th>
+                            <th>Hora</th>
+                            <th>Descrição</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                            <!-- Adicione mais colunas conforme necessário -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for compromisso_do_dia in compromissos_do_dia %}
+                        {% if compromisso_do_dia.pk != compromisso.pk %}
+                        <tr>
+                            
+                            <td><a href="{% url 'compromisso_detail' pk=compromisso_do_dia.pk %}">{{ compromisso_do_dia.pk }}</a></td>
+                            <td>{{ compromisso_do_dia.data|date:"d/m/Y" }}</td>
+                            <td>{{ compromisso_do_dia.hora }}</td>
+                            <td>{{ compromisso_do_dia.descricao }}</td>
+                            <td>{% if compromisso_do_dia.concluido %}Concluído{% else %}Pendente{% endif %}</td>
+                            <td><a href="{% url 'compromisso_edit' pk=compromisso.pk %}"><img src="{% static 'img/edit.png' %}" alt="" style="width: 16px;height: 16px;">Editar</a>
+                                {% if not compromisso_do_dia.concluido %}
+                                <a href="{% url 'marcar_concluido' compromisso_id=compromisso.id %}"><img src="{% static 'img/concluido.png' %}" alt="" style="width: 16px;height: 16px;">Concluir</a>
+                                
+                                {% else %}
+                                
+                                {% endif %}
+                                <a href="{% url 'compromisso_delete' pk=compromisso.pk %}"><img src="{% static 'img/delete.png' %}" alt="" style="width: 16px;height: 16px;">Excluir</a></td>
+                                <!-- Adicione mais colunas conforme necessário -->
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
+            {% endif %}
+            <center><a href="{% url 'show_cal' %}"><br><img src="{% static 'img/calendario.png' %}" alt="Logo" style="width: 24px; height: 24px;"> Voltar para o calendário</a></center>
         </div>
-{% endblock content %}
-
+        {% endblock content %}
+        

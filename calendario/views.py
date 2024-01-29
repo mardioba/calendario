@@ -84,8 +84,15 @@ def add_compromisso(request):
 @login_required
 def compromisso_detail(request, pk):
     compromisso = get_object_or_404(Compromisso, pk=pk)
+
+    # Obtém a data do compromisso
+    data_do_compromisso = compromisso.data
+
+    # Filtra todos os compromissos do mesmo dia
+    compromissos_do_dia = Compromisso.objects.filter(data=data_do_compromisso)
+
     return render(
-        request, "calendario/compromisso_detail.html", {"compromisso": compromisso}
+        request, "calendario/compromisso_detail.html", {"compromisso": compromisso, "compromissos_do_dia": compromissos_do_dia}
     )
 
 
